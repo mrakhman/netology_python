@@ -17,13 +17,13 @@ text = 'Если программист в 9-00 утра на работе, зн
 P.S. Вам может помочь метод replace.
 """
 text = 'Если программист в 9-00 утра на работе, значит, он там и ночевал'
-# 1 способ - с помощью replace
+# 1 способ: с помощью replace
 if (len(text.replace('а','')) < len(text.replace('и',''))):
     print("Букв 'а' больше")
 else:
     print("Букв 'и' больше")
 
-# 2 способ - с помощью count
+# 2 способ: с помощью count
 if (text.count('а') > text.count('и')):
     print("Букв 'а' больше")
 else:
@@ -37,14 +37,15 @@ else:
 P.S. Найдите определение килобайта. Это не 1000 байт.
 """
 # 1kb = 1024 byte; 1Mb = 1 048 576 byte (1024^2)
-# 1 - Using function
+
+# 1: способ Using function
 def n_megabyte(n_byte):
 	n_mb = n_byte * 1.0 / 1048576
 	return ('Объем файла равен {:.2f}Mb'.format(n_mb))
 
 n_megabyte(724288)
 
-# 2 - Using 'print'
+# 2 способ: Using 'print'
 n_byte = 724288
 n_mb = n_byte / 1048576
 print ('Объем файла равен {:.2f}Mb'.format(n_mb))
@@ -67,7 +68,12 @@ math.sin(math.radians(30))
 Попробуйте вывести на экран результат операции 0.1 + 0.2
 Почему результат неточен?
 """
-
+# Ответ:
+# 0.1 и 0.2 - это вещественные числа. Они представляются в виде двоиченой дроби (число умноженное на степень двойки).
+# В таком виде не все числа представляются точно. Так выражение 0.1 + 0.2 == 0.3 может возвращать FALSE, так как
+# округление числа может происходить не в ту сторону. Два вещественных числа нельзя так просто сравнить на равенство.
+# Чтобы все таки выполнить сравнение, надо взять разность чисел по модулю и сравнить этот модуль с условным эпсилоном,
+# который будет отвечать за погрешность либо сравнивать числа с заданным кол-вом знаков после запятой: {:.6f}
 
 
 
@@ -77,6 +83,33 @@ math.sin(math.radians(30))
 1. В переменных a и b записаны 2 различных числа. Вам необходимо написать код, который меняет 
 значения a и b местами без использования третьей переменной.
 """
+# 1 способ: using + and -
+x = 10
+y = 5
+
+def swap_1(x, y):
+    x = x + y # x now becomes 15 
+    y = x - y # y becomes 10
+    x = x - y # x becomes 5
+    print("After  swap: x =", x, "  y =", y)
+
+print("Before swap: x =", x, " y =", y)
+swap_1(x, y)
+
+
+# 2 способ: using bitwise XOR
+a = 10 # 1010
+b = 5  # 0101
+
+def swap_2(a, b):
+    a = a ^ b; # 1010 XOR 0101 = 1111 - a becomes 15
+    b = a ^ b; # 1111 XOR 0101 = 1010 - b becomes 10
+    a = a ^ b; # 1111 XOR 1010 = 0101 - a becomes 5
+    print("After  swap: a =", a, "  b =", b)
+
+print("Before swap: a =", a, " b =", b)
+swap_2(a, b)
+
 
 
 """
@@ -85,3 +118,26 @@ math.sin(math.radians(30))
 Возможно, вам понадобится цикл прохождения всех целых чисел от 0 до m:
 for n in range(m)
 """
+# 1: using int() function
+num = 10011
+num_str = str(num)
+print (int(num_str, 2))
+
+
+# 2: unsing loop through binary string
+binary = '10011'
+decimal = 0
+
+for i in binary:
+    decimal = decimal * 2 + int(i)
+print (decimal)
+
+
+# 3: school way of thralslation like on a paper
+bin = '10011'
+bin_rev = bin[::-1] # reversed range to loop from last digit of 'bin' to first
+
+decimal = 0
+for i in range(0, len(bin)):
+    decimal = decimal + int(bin_rev[i]) * 2**i
+print (decimal)
